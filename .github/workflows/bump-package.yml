@@ -1,0 +1,84 @@
+name: Bump Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      packageName:
+        description: 'bump condidate package name'
+        required: true
+
+jobs:
+  setup:
+    name: Set up
+    runs-on: [ubuntu-latest]
+
+  #   outputs:
+  #     stages: ${{ steps.stages.outputs.stages }}
+
+  #   steps:
+  #     - name: Dump GitHub context
+  #       env:
+  #         GITHUB_CONTEXT: ${{ toJson(github) }}
+  #       run: echo "$GITHUB_CONTEXT"
+
+  #     - name: Cancel previous workflow runs
+  #       uses: styfle/cancel-workflow-action@0.11.0
+  #       with:
+  #         access_token: ${{ github.token }}
+
+  # bump_package_version:
+  #   name: Static checks
+  #   runs-on: [self-hosted, Linux]
+  #   needs: setup
+
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+  #       with:
+  #         ref: ${{ github.ref }}
+
+  #     - name: Read nvmrc
+  #       id: read-nvmrc
+  #       run: echo "version=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+  #       shell: bash
+
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: ${{ steps.read-nvmrc.outputs.version }}
+
+# create pr
+
+      # - name: Install ${{ inputs.packageName }} last version
+      #   run: |
+          npm i ${{ inputs.packageName }}
+      - name: Make changes
+        run: |
+          echo "hello" > hello.txt
+        
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: Update package
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          branch: bump-package
+          branch-suffix: random
+          # base: main
+          delete-branch: true
+          title: '[BUMP] Update package'
+          body: |
+            Update ${{ inputs.packageName }} package to last version
+          labels: |
+            bump
+            automated pr
+          # assignees: 
+          # reviewers: 
+          # team-reviewers: |
+          #   developers
+          #   qa-team
+          # milestone: 1
+          draft: false
