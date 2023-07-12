@@ -15,7 +15,7 @@ jobs:
   #   outputs:
   #     stages: ${{ steps.stages.outputs.stages }}
 
-  #   steps:
+    steps:
   #     - name: Dump GitHub context
   #       env:
   #         GITHUB_CONTEXT: ${{ toJson(github) }}
