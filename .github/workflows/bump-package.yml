@@ -52,11 +52,11 @@ jobs:
       # - name: Install ${{ inputs.packageName }} last version
       #   run: |
           # npm i ${{ inputs.packageName }}
-      - name: Make changes
-        run: |
-          echo "hello" > hello.txt
-          pwd
-          ls -la
+#       - name: Make changes
+#         run: |
+#           echo "hello" > hello.txt
+#           pwd
+#           ls -la
         
       - name: Create Pull Request
         id: cpr
