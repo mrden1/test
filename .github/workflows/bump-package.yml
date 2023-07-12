@@ -51,7 +51,7 @@ jobs:
 
       # - name: Install ${{ inputs.packageName }} last version
       #   run: |
-          npm i ${{ inputs.packageName }}
+          # npm i ${{ inputs.packageName }}
       - name: Make changes
         run: |
           echo "hello" > hello.txt
